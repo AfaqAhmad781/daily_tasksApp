@@ -1,99 +1,34 @@
-Daily Reminder - To-Do App
+# 💡 Daily Reminder — Flutter To-Do App
 
-A clean, modern, and responsive Flutter To-Do application designed to help users track daily tasks with ease and style. Built with custom page transitions, state persistence, and interactive swipe gestures.
+> **A minimal, elegant, and responsive To-Do application built with Flutter.**  
+> *"A little light, every day."*
 
-🌟 Features
+---
 
-Custom Onboarding Experience:
+## 📱 Screenshots & Overview
 
-Clean UI featuring custom Google Fonts (Poppins).
+| Onboarding Screen | Main App Dashboard |
+| :---: | :---: |
+| Clean custom lamp splash with smooth zoom transition | Dynamic task progress bar, swipe-to-delete, & state storage |
 
-Smooth explicit animation transition that zooms and fades into the main workspace.
+---
 
-Task Workspace & Progress Tracking:
+## ✨ Features
 
-Real-time progress bar reflecting completed vs. remaining tasks.
+- **🎨 Minimal & Modern UI**: Tailored with custom Google Fonts (`Poppins`), subtle animations, and modern dark/yellow accent styling.
+- **⚡ Smooth Zoom Onboarding**: Interactive onboarding screen featuring an animated zoom transition from `GettingstartedPage` into `MainAppPage`.
+- **📊 Real-time Progress Tracking**: Interactive task checklist that automatically updates task counters and the visual completion bar.
+- **👉 Swipe-to-Delete with Undo**: Intuitive `Dismissible` gesture logic allowing users to swipe left or right to delete tasks with instant undo feedback via `SnackBar`.
+- **➕ Integrated Task Creation**: Navigate to `AddTaskPage` to quickly create tasks with categories and custom due times.
+- **💾 Local Data Persistence**: Powered by `shared_preferences` and JSON serialization so tasks persist across app restarts.
+- **📱 Fully Responsive**: Built with `LayoutBuilder` and `Expanded` lists to adapt smoothly across all mobile screen sizes.
 
-Interactive task checklist with toggle states and automatic progress calculation.
+---
 
-Responsive layout adapted using LayoutBuilder for various screen sizes.
+## 🛠️ Tech Stack & Architecture
 
-Task Management:
-
-Dedicated Add Task page with title, category chips, and time inputs.
-
-Swipe-to-Delete functionality (Dismissible) with explicit visual delete feedback.
-
-Undo Option via SnackBar for accidental task deletions.
-
-Local Data Persistence:
-
-Persistent storage using shared_preferences.
-
-Automatic saving and loading of tasks across app restarts.
-
-📁 Project Structure
-
-lib/
-├── app_UI/
-│   ├── add_task_page.dart         # Screen to create and customize new tasks
-│   ├── gettingstarted_page.dart   # Onboarding screen with custom animation
-│   └── main_app_page.dart         # Main task view & persistence handler
-├── animations/
-│   └── fade_route.dart            # Custom PageRouteBuilder transition
-├── components/
-│   └── app_theme.dart             # App color palette & styling constants
-└── main.dart                      # Application entry point
-
-
-🚀 Getting Started
-
-Prerequisites
-
-Flutter SDK (Latest Stable Version)
-
-Dart SDK
-
-An IDE (VS Code or Android Studio) with Flutter extensions installed.
-
-Dependencies
-
-Ensure the following packages are added to your pubspec.yaml:
-
-dependencies:
-  flutter:
-    sdk: flutter
-  google_fonts: ^6.1.0
-  intl: ^0.19.0
-  shared_preferences: ^2.2.2
-
-
-Installation & Run
-
-Clone or download the repository:
-
-git clone https://github.com/your-username/to_do_app.git
-cd to_do_app
-
-
-Fetch dependencies:
-
-flutter pub get
-
-
-Run the app:
-
-flutter run
-
-
-Note: If you encounter LateInitializationError on the onboarding screen after modifying animations, perform a Hot Restart (Shift + R in terminal) or re-run the application.
-
-🎨 Design System
-
-Primary Color: Custom Yellow (AppTheme.yellow)
-
-Background Color: Light Off-White (AppTheme.background)
-
-Dark Contrast Color: Off-Black (AppTheme.dark)
-
-Typography: GoogleFonts.poppins
+- **Framework:** [Flutter](https://flutter.dev/) (Dart)
+- **State Management:** `StatefulWidget` with local state lifting
+- **Storage:** `shared_preferences`
+- **Typography:** `google_fonts` (`Poppins`)
+- **Formatting:** `intl`
