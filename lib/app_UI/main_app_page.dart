@@ -23,37 +23,54 @@ class _MainAppPageState extends State<MainAppPage> {
     _loadTasks();
   }
 
-  // Load tasks from SharedPreferences
+  // Load tasks safely from SharedPreferences
   Future<void> _loadTasks() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? tasksJson = prefs.getString('saved_tasks');
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String? tasksJson = prefs.getString('saved_tasks');
 
-    if (tasksJson != null) {
-      final List<dynamic> decoded = jsonDecode(tasksJson);
-      setState(() {
-        _tasks = decoded.map((item) => Map<String, dynamic>.from(item)).toList();
-        _isLoading = false;
-      });
-    } else {
-      // Default starter tasks for first-time launch
-      setState(() {
-        _tasks = [
-          {'title': 'Pick up groceries', 'subtitle': 'Personal · 5:30 PM', 'isDone': false},
-          {'title': 'Read 20 pages', 'subtitle': 'Wellbeing · 7:00 PM', 'isDone': false},
-          {'title': 'Call Mom', 'subtitle': 'Personal · 8:00 PM', 'isDone': false},
-          {'title': 'Plan tomorrow', 'subtitle': 'Personal · 9:00 PM', 'isDone': false},
-        ];
-        _isLoading = false;
-      });
-      _saveTasks();
+      if (tasksJson != null) {
+        final List<dynamic> decoded = jsonDecode(tasksJson);
+        if (mounted) {
+          setState(() {
+            _tasks = decoded.map((item) => Map<String, dynamic>.from(item)).toList();
+          });
+        }
+      } else {
+        // Default starter tasks for first-time launch
+        if (mounted) {
+          setState(() {
+            _tasks = [
+              {'title': 'Pick up groceries', 'subtitle': 'Personal · 5:30 PM', 'isDone': false},
+              {'title': 'Read 20 pages', 'subtitle': 'Wellbeing · 7:00 PM', 'isDone': false},
+              {'title': 'Call Mom', 'subtitle': 'Personal · 8:00 PM', 'isDone': false},
+              {'title': 'Plan tomorrow', 'subtitle': 'Personal · 9:00 PM', 'isDone': false},
+            ];
+          });
+        }
+        await _saveTasks();
+      }
+    } catch (e) {
+      debugPrint('Error loading tasks: $e');
+    } finally {
+      // Guarantees loading state ends even if an exception occurs
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
   // Save tasks to SharedPreferences
   Future<void> _saveTasks() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String encoded = jsonEncode(_tasks);
-    await prefs.setString('saved_tasks', encoded);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String encoded = jsonEncode(_tasks);
+      await prefs.setString('saved_tasks', encoded);
+    } catch (e) {
+      debugPrint('Error saving tasks: $e');
+    }
   }
 
   int get _completedCount => _tasks.where((t) => t['isDone'] == true).length;
