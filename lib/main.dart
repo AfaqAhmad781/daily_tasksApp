@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/app_UI/gettingstarted_page.dart';
 import 'package:to_do_app/components/app_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Daily Reminder',
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: AppTheme.background,
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: GettingstartedPage()
+      home: const GettingstartedPage(),
       // Scaffold(
       //   appBar: AppBar(
       //     title: Text('Afaq',
